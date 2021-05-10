@@ -1,3 +1,5 @@
+import {credentials} from './resource/credentials.js'
+import {TreeFrog} from '../classes/treeFrog.js'
 // let zvieratko = new Animal('mátoha', 'zelená', news);
 
 

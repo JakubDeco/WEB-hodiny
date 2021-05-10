@@ -1,4 +1,5 @@
-class TreeFrog extends Animal {
+import {Animal} from './animal.js'
+export class TreeFrog extends Animal {
     constructor(name, colour, news, pohlavie) {
         super(name, colour, news)
         this.pohlavie = pohlavie

@@ -1,9 +1,9 @@
-class Animal{
+export class Animal{
     _dead = false; // _ means protected; # means private
     constructor(name, colour, news){
         this.name = name;
         this.colour = colour;
-        this.news = news;
+        this.news = document.getElementById("news");
         this.informWorld('sa narodil.')
     }
 
