@@ -45,7 +45,9 @@ function getWeatherAtLocation() {
             return resp.json()
         }).then(json => {
 
-            //console.log(json)
+            console.log(json)
+
+            const cityCountry = json.results[0].components.city + ', ' + json.results[0].components["ISO_3166-1_alpha-3"]
 
             const lat = json.results[0].geometry.lat;
             const lon = json.results[0].geometry.lng;
@@ -59,7 +61,7 @@ function getWeatherAtLocation() {
                 .then(resp =>
                     resp.json()
                 ).then(json => {
-                    createWeatherCard(json)
+                    createWeatherCard(json, cityCountry)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -68,18 +70,18 @@ function getWeatherAtLocation() {
         })
 }
 
-const createWeatherCard = (json) => {
+const createWeatherCard = (json, cityCountry) => {
     //console.log(json)
     const weatherCard = document.createElement('div')
     weatherCard.className = "weatherCard"
 
     const location = document.createElement('span')
     location.className = 'location-span'
-    location.textContent = document.getElementById('city-input').value + ', ' + document.getElementById('country-input').value
+    location.textContent = cityCountry
 
     const temp = document.createElement('span')
     temp.className = 'temp-span'
-    temp.textContent = json.daily[0].temp.day + '°C'
+    temp.textContent = Math.round(json.daily[0].temp.day) + '°C'
 
     const icon = document.createElement('img')
     icon.src=`http://openweathermap.org/img/wn/${json.daily[0].weather[0].icon}@2x.png`
