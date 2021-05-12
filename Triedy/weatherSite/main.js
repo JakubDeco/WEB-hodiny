@@ -1,5 +1,5 @@
 import {credentials} from './resource/credentials.js'
-import {TreeFrog} from '../classes/treeFrog.js'
+// import {TreeFrog} from '../classes/treeFrog.js'
 // let zvieratko = new Animal('mátoha', 'zelená', news);
 
 
@@ -45,7 +45,7 @@ function getWeatherAtLocation() {
             return resp.json()
         }).then(json => {
 
-            console.log(json)
+            //console.log(json)
 
             const cityCountry = json.results[0].components.city + ', ' + json.results[0].components["ISO_3166-1_alpha-3"]
 
