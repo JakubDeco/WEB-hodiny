@@ -32,15 +32,24 @@ document.getElementById('weather-btn').addEventListener('click', () => {
     }
 
 })
+const apiKeys = {}
+
+chrome.storage.sync.get(['weatherAPIKey'],(url) => {
+    apiKeys.openweathermap = url.weatherAPIKey
+})
+chrome.storage.sync.get(['weatherAPIKey'],(url) => {
+    apiKeys.opencagedata = url.geoAPIKey
+})
 
 function getWeatherAtLocation() {
     //https://cms-assets.tutsplus.com/uploads/users/30/posts/33893/final_image/app.png
     const city = document.getElementById('city-input').value
     const country = document.getElementById('country-input').value
-    const apiKey = credentials.apiKeys.opencagedata
+    //const apiKey = credentials.apiKeys.opencagedata
+    //const apiKey = credentials.apiKeys.opencagedata
 
     // forward geolocation
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${city},${country}&key=${apiKey}`)
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${city},${country}&key=${apiKeys.opencagedata}`)
         .then(resp => {
             return resp.json()
         }).then(json => {
@@ -51,13 +60,13 @@ function getWeatherAtLocation() {
 
             const lat = json.results[0].geometry.lat;
             const lon = json.results[0].geometry.lng;
-            const apiKey = credentials.apiKeys.openweathermap;
+            //const apiKey = credentials.apiKeys.openweathermap;
             const exclude = 'curent,minutely,hourly,alerts'
             const units = 'metric';
             // console.log(`api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${apiKey}&units=${units}`)
 
             // requesting current weather at given location
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${apiKey}&units=${units}`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${apiKeys.openweathermap}&units=${units}`)
                 .then(resp =>
                     resp.json()
                 ).then(json => {
